@@ -72,7 +72,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalOverlay = document.querySelector('.modal-overlay');
 
     // Replace with actual YouTube video ID
-    const youtubeVideoId = '0SsW27DB_Ys'; // User's video ID
+    const youtubeVideoId = 'Yhtz3nTXvcM'; // ID видео с интервью Хартманна
+
 
     // Intersection Observer for auto-play
     const observerOptions = {
@@ -156,4 +157,5 @@ document.addEventListener('DOMContentLoaded', () => {
         statsObserver.observe(stat);
     });
 });
+
 
