@@ -164,10 +164,10 @@ const ctaVideoFrame = document.getElementById('ctaVideoFrame');
 const ctaButton = document.getElementById('ctaButton');
 
 if (ctaVideoOverlay) {
-    ctaVideoOverlay.addEventListener('click', function() {
+    ctaVideoOverlay.addEventListener('click', function () {
         // Hide overlay
         this.classList.add('hidden');
-        
+
         // Reload iframe with sound
         const iframe = document.getElementById('ctaVideo');
         const currentSrc = iframe.src;
@@ -186,9 +186,9 @@ if (typeof anime !== 'undefined' && ctaButton) {
         loop: true,
         direction: 'alternate'
     });
-    
+
     // On hover - 3D effect
-    ctaButton.addEventListener('mouseenter', function() {
+    ctaButton.addEventListener('mouseenter', function () {
         anime({
             targets: this,
             scale: 1.1,
@@ -198,8 +198,8 @@ if (typeof anime !== 'undefined' && ctaButton) {
             easing: 'easeOutQuad'
         });
     });
-    
-    ctaButton.addEventListener('mouseleave', function() {
+
+    ctaButton.addEventListener('mouseleave', function () {
         anime({
             targets: this,
             scale: 1,
@@ -229,24 +229,30 @@ if (typeof anime !== 'undefined') {
 }
 
 
-// Video Testimonials
+// Video Testimonials - Open in Modal
 const videoTestimonials = document.querySelectorAll('.video-testimonial-card');
+const videoModal = document.getElementById('videoModal');
+const modalVideo = document.getElementById('modalVideo');
+const modalOverlay = document.querySelector('.modal-overlay');
 
 videoTestimonials.forEach(card => {
     const overlay = card.querySelector('.video-testimonial-overlay');
     const iframe = card.querySelector('.testimonial-video');
-    
+
     if (overlay && iframe) {
-        overlay.addEventListener('click', function() {
-            // Hide overlay
-            this.classList.add('hidden');
-            
-            // Get video ID and reload with sound
+        overlay.addEventListener('click', function () {
+            // Get video ID from iframe
             const videoId = iframe.getAttribute('data-video-id');
-            iframe.src = https://www.youtube.com/embed/?enablejsapi=1&autoplay=1&controls=1&modestbranding=1;
+
+            // Open modal with video
+            if (videoModal && modalVideo && videoId) {
+                modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1`;
+                videoModal.classList.add('active');
+            }
         });
     }
 });
+
 
 
 
