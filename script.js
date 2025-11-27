@@ -229,29 +229,62 @@ if (typeof anime !== 'undefined') {
 }
 
 
-// Video Testimonials - Open in Modal
+// Video Testimonials - Autoplay + Modal
 const videoTestimonials = document.querySelectorAll('.video-testimonial-card');
 const videoModal = document.getElementById('videoModal');
 const modalVideo = document.getElementById('modalVideo');
-const modalOverlay = document.querySelector('.modal-overlay');
 
+// Intersection Observer for autoplay
+const testimonialObserverOptions = {
+    threshold: 0.5
+};
+
+const testimonialObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        const card = entry.target;
+        const preview = card.querySelector('.testimonial-video-preview');
+        const videoId = card.getAttribute('data-video-id');
+
+        if (entry.isIntersecting && videoId) {
+            // Load muted autoplay video
+            preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
+        } else {
+            // Stop video when not visible
+            preview.src = '';
+        }
+    });
+}, testimonialObserverOptions);
+
+// Observe all video testimonial cards
 videoTestimonials.forEach(card => {
+    testimonialObserver.observe(card);
+
+    // Click to open modal
     const overlay = card.querySelector('.video-testimonial-overlay');
-    const iframe = card.querySelector('.testimonial-video');
-
-    if (overlay && iframe) {
+    if (overlay) {
         overlay.addEventListener('click', function () {
-            // Get video ID from iframe
-            const videoId = iframe.getAttribute('data-video-id');
+            const videoId = card.getAttribute('data-video-id');
 
-            // Open modal with video
             if (videoModal && modalVideo && videoId) {
                 modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1`;
                 videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
             }
         });
     }
+
+    // Also allow clicking on the whole card
+    card.addEventListener('click', function () {
+        const videoId = card.getAttribute('data-video-id');
+
+        if (videoModal && modalVideo && videoId) {
+            modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1`;
+            videoModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    });
 });
+
 
 
 
