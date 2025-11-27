@@ -550,7 +550,7 @@
             </div>
         </section>
 
-                       <!-- Video Testimonials -->
+<!-- Video Testimonials -->
         <section class="video-testimonials-section">
             <div class="section-container">
                 <h2 class="video-testimonials-title">Отзывы учеников</h2>
@@ -594,8 +594,7 @@
             </div>
         </section>
 
-
-        <!-- Video Modal -->
+        <!-- Video Modal (Hartmann only) -->
         <div class="video-modal" id="videoModal">
             <div class="modal-overlay"></div>
             <div class="modal-content">
@@ -611,11 +610,24 @@
                         allowfullscreen>
                     </iframe>
                 </div>
-                <div class="modal-cta">
-                    <a href="#" class="cta-button">
-                        <i class="fas fa-paper-plane"></i>
-                        Оставить заявку
-                    </a>
+            </div>
+        </div>
+
+        <!-- Universal Video Modal (for testimonials and future videos) -->
+        <div class="video-modal" id="universalVideoModal">
+            <div class="modal-overlay" id="universalModalOverlay"></div>
+            <div class="modal-content">
+                <button class="modal-close" id="universalModalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="modal-video-wrapper">
+                    <iframe 
+                        id="universalModalVideo"
+                        src="" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
                 </div>
             </div>
         </div>
@@ -624,6 +636,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
