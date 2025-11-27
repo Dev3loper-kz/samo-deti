@@ -229,6 +229,24 @@ if (typeof anime !== 'undefined') {
 }
 
 
+// Video Testimonials
+const videoTestimonials = document.querySelectorAll('.video-testimonial-card');
+
+videoTestimonials.forEach(card => {
+    const overlay = card.querySelector('.video-testimonial-overlay');
+    const iframe = card.querySelector('.testimonial-video');
+    
+    if (overlay && iframe) {
+        overlay.addEventListener('click', function() {
+            // Hide overlay
+            this.classList.add('hidden');
+            
+            // Get video ID and reload with sound
+            const videoId = iframe.getAttribute('data-video-id');
+            iframe.src = https://www.youtube.com/embed/?enablejsapi=1&autoplay=1&controls=1&modestbranding=1;
+        });
+    }
+});
 
 
 
