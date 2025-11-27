@@ -158,6 +158,78 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+// Video CTA Section
+const ctaVideoOverlay = document.getElementById('videoPlayOverlay');
+const ctaVideoFrame = document.getElementById('ctaVideoFrame');
+const ctaButton = document.getElementById('ctaButton');
+
+if (ctaVideoOverlay) {
+    ctaVideoOverlay.addEventListener('click', function() {
+        // Hide overlay
+        this.classList.add('hidden');
+        
+        // Reload iframe with sound
+        const iframe = document.getElementById('ctaVideo');
+        const currentSrc = iframe.src;
+        iframe.src = currentSrc.replace('mute=1', 'mute=0').replace('controls=0', 'controls=1');
+    });
+}
+
+// Animate CTA button with anime.js
+if (typeof anime !== 'undefined' && ctaButton) {
+    // Floating animation
+    anime({
+        targets: ctaButton,
+        translateY: [-5, 5],
+        duration: 2000,
+        easing: 'easeInOutSine',
+        loop: true,
+        direction: 'alternate'
+    });
+    
+    // On hover - 3D effect
+    ctaButton.addEventListener('mouseenter', function() {
+        anime({
+            targets: this,
+            scale: 1.1,
+            rotateX: [0, 5],
+            rotateY: [0, -5],
+            duration: 300,
+            easing: 'easeOutQuad'
+        });
+    });
+    
+    ctaButton.addEventListener('mouseleave', function() {
+        anime({
+            targets: this,
+            scale: 1,
+            rotateX: 0,
+            rotateY: 0,
+            duration: 300,
+            easing: 'easeOutQuad'
+        });
+    });
+}
+
+// Animate floating shapes
+if (typeof anime !== 'undefined') {
+    const shapes = document.querySelectorAll('.shape');
+    shapes.forEach((shape, index) => {
+        anime({
+            targets: shape,
+            translateX: () => anime.random(-50, 50),
+            translateY: () => anime.random(-50, 50),
+            scale: [1, 1.2, 1],
+            duration: 3000 + (index * 1000),
+            easing: 'easeInOutQuad',
+            loop: true,
+            direction: 'alternate'
+        });
+    });
+}
+
+
+
 
 
 
