@@ -73,7 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Replace with actual YouTube video ID
     const youtubeVideoId = 'Yhtz3nTXvcM'; // ID видео с интервью Хартманна
-
+    const youtubeVideoId2 = 'RhxM3uJy_dk'; // ID 2
+    const youtubeVideoId3 = 'WH2G0C_-uCw'; // ID 3
     // Intersection Observer for auto-play
     const observerOptions = {
         threshold: 0.5
@@ -283,7 +284,8 @@ videoTestimonials.forEach(card => {
             document.body.style.overflow = 'hidden';
         }
     });
-});
+});;
+
 
 
 
