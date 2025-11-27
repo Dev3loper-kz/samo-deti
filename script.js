@@ -3,12 +3,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdown = document.getElementById('dropdownMenu');
 
     hamburger.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent click from closing immediately
+        e.stopPropagation();
         hamburger.classList.toggle('active');
         dropdown.classList.toggle('show');
     });
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         if (!hamburger.contains(e.target) && !dropdown.contains(e.target)) {
             hamburger.classList.remove('active');
@@ -19,27 +18,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dynamic header on scroll
     const header = document.querySelector('.main-header');
     let lastScrollTop = 0;
-    let scrollThreshold = 5; // Minimum scroll distance to trigger hide/show
+    let scrollThreshold = 5;
 
     window.addEventListener('scroll', () => {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-        // Always show header at the top of the page
         if (scrollTop <= 0) {
             header.classList.remove('header-hidden');
             return;
         }
 
-        // Check scroll direction
         if (Math.abs(scrollTop - lastScrollTop) < scrollThreshold) {
-            return; // Don't do anything if scroll is too small
+            return;
         }
 
         if (scrollTop > lastScrollTop) {
-            // Scrolling down - hide header
             header.classList.add('header-hidden');
         } else {
-            // Scrolling up - show header
             header.classList.remove('header-hidden');
         }
 
@@ -52,18 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentPhotoIndex = 0;
 
         setInterval(() => {
-            // Remove active class from current photo
             photos[currentPhotoIndex].classList.remove('active');
-
-            // Move to next photo
             currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
-
-            // Add active class to new photo
             photos[currentPhotoIndex].classList.add('active');
         }, 4000);
     }
 
-    // Video functionality
+    // HARTMANN VIDEO - Dedicated modal
     const videoContainer = document.getElementById('founderVideo');
     const videoPreview = document.getElementById('videoPreview');
     const videoModal = document.getElementById('videoModal');
@@ -71,11 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalClose = document.getElementById('modalClose');
     const modalOverlay = document.querySelector('.modal-overlay');
 
-    // Replace with actual YouTube video ID
-    const youtubeVideoId = 'Yhtz3nTXvcM'; // ID видео с интервью Хартманна
-    const youtubeVideoId2 = 'RhxM3uJy_dk'; // ID 2
-    const youtubeVideoId3 = 'WH2G0C_-uCw'; // ID 3
-    // Intersection Observer for auto-play
+    const youtubeVideoId = 'Yhtz3nTXvcM';
+
     const observerOptions = {
         threshold: 0.5
     };
@@ -83,10 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Load muted autoplay video
                 videoPreview.src = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeVideoId}`;
             } else {
-                // Stop video when not visible
                 videoPreview.src = '';
             }
         });
@@ -96,15 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
         videoObserver.observe(videoContainer);
     }
 
-    // Open modal on video click
     videoContainer?.addEventListener('click', () => {
         videoModal.classList.add('active');
-        // Load full video with sound and controls
         modalVideo.src = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&controls=1`;
         document.body.style.overflow = 'hidden';
     });
 
-    // Close modal
     const closeModal = () => {
         videoModal.classList.remove('active');
         modalVideo.src = '';
@@ -114,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
     modalClose?.addEventListener('click', closeModal);
     modalOverlay?.addEventListener('click', closeModal);
 
-    // Close on Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && videoModal.classList.contains('active')) {
             closeModal();
@@ -126,8 +107,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const animateCounter = (element) => {
         const target = parseInt(element.getAttribute('data-target'));
-        const duration = 2000; // 2 seconds
-        const increment = target / (duration / 16); // 60fps
+        const duration = 2000;
+        const increment = target / (duration / 16);
         let current = 0;
 
         const updateCounter = () => {
@@ -143,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCounter();
     };
 
-    // Intersection Observer for stat counters
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
@@ -166,10 +146,7 @@ const ctaButton = document.getElementById('ctaButton');
 
 if (ctaVideoOverlay) {
     ctaVideoOverlay.addEventListener('click', function () {
-        // Hide overlay
         this.classList.add('hidden');
-
-        // Reload iframe with sound
         const iframe = document.getElementById('ctaVideo');
         const currentSrc = iframe.src;
         iframe.src = currentSrc.replace('mute=1', 'mute=0').replace('controls=0', 'controls=1');
@@ -178,7 +155,6 @@ if (ctaVideoOverlay) {
 
 // Animate CTA button with anime.js
 if (typeof anime !== 'undefined' && ctaButton) {
-    // Floating animation
     anime({
         targets: ctaButton,
         translateY: [-5, 5],
@@ -188,7 +164,6 @@ if (typeof anime !== 'undefined' && ctaButton) {
         direction: 'alternate'
     });
 
-    // On hover - 3D effect
     ctaButton.addEventListener('mouseenter', function () {
         anime({
             targets: this,
@@ -230,10 +205,12 @@ if (typeof anime !== 'undefined') {
 }
 
 
-// Video Testimonials - Autoplay + Modal
+// UNIVERSAL VIDEO MODAL - For testimonials and future videos
 const videoTestimonials = document.querySelectorAll('.video-testimonial-card');
-const videoModal = document.getElementById('videoModal');
-const modalVideo = document.getElementById('modalVideo');
+const universalVideoModal = document.getElementById('universalVideoModal');
+const universalModalVideo = document.getElementById('universalModalVideo');
+const universalModalClose = document.getElementById('universalModalClose');
+const universalModalOverlay = document.getElementById('universalModalOverlay');
 
 // Intersection Observer for autoplay
 const testimonialObserverOptions = {
@@ -247,10 +224,8 @@ const testimonialObserver = new IntersectionObserver((entries) => {
         const videoId = card.getAttribute('data-video-id');
 
         if (entry.isIntersecting && videoId) {
-            // Load muted autoplay video
             preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
         } else {
-            // Stop video when not visible
             preview.src = '';
         }
     });
@@ -260,31 +235,37 @@ const testimonialObserver = new IntersectionObserver((entries) => {
 videoTestimonials.forEach(card => {
     testimonialObserver.observe(card);
 
-    // Click to open modal
-    const overlay = card.querySelector('.video-testimonial-overlay');
-    if (overlay) {
-        overlay.addEventListener('click', function () {
-            const videoId = card.getAttribute('data-video-id');
-
-            if (videoModal && modalVideo && videoId) {
-                modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1`;
-                videoModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-    }
-
-    // Also allow clicking on the whole card
+    // Click to open universal modal
     card.addEventListener('click', function () {
         const videoId = card.getAttribute('data-video-id');
 
-        if (videoModal && modalVideo && videoId) {
-            modalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1`;
-            videoModal.classList.add('active');
+        if (universalVideoModal && universalModalVideo && videoId) {
+            universalModalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1`;
+            universalVideoModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
     });
-});;
+});
+
+// Close universal modal
+const closeUniversalModal = () => {
+    if (universalVideoModal) {
+        universalVideoModal.classList.remove('active');
+        universalModalVideo.src = '';
+        document.body.style.overflow = '';
+    }
+};
+
+universalModalClose?.addEventListener('click', closeUniversalModal);
+universalModalOverlay?.addEventListener('click', closeUniversalModal);
+
+// Close on Escape key for universal modal
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && universalVideoModal?.classList.contains('active')) {
+        closeUniversalModal();
+    }
+});
+
 
 
 
