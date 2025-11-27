@@ -212,8 +212,32 @@ const universalModalVideo = document.getElementById('universalModalVideo');
 const universalModalClose = document.getElementById('universalModalClose');
 const universalModalOverlay = document.getElementById('universalModalOverlay');
 
-// Click to open universal modal
+// Intersection Observer for autoplay
+const testimonialObserverOptions = {
+    threshold: 0.5
+};
+
+const testimonialObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        const card = entry.target;
+        const preview = card.querySelector('.testimonial-video-preview');
+        const videoId = card.getAttribute('data-video-id');
+
+        if (entry.isIntersecting && videoId) {
+            // Load muted autoplay video
+            preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
+        } else {
+            // Stop video when not visible
+            preview.src = '';
+        }
+    });
+}, testimonialObserverOptions);
+
+// Observe all video testimonial cards and setup click handlers
 videoTestimonials.forEach(card => {
+    testimonialObserver.observe(card);
+
+    // Click to open universal modal
     card.addEventListener('click', function () {
         const videoId = card.getAttribute('data-video-id');
 
@@ -243,6 +267,7 @@ document.addEventListener('keydown', (e) => {
         closeUniversalModal();
     }
 });
+
 
 
 
