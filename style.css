@@ -3713,6 +3713,235 @@ html, body {
 }
 
 
+/* ========================================================================
+   SPECIFIC MOBILE FIXES FOR PROBLEMATIC SECTIONS
+   ======================================================================== */
+
+@media (max-width: 768px) {
+    /* ===== HERO SECTION FIX ===== */
+    .hero-section {
+        height: auto !important;
+        min-height: 500px;
+        flex-direction: column-reverse;
+        padding: 40px 20px !important;
+        text-align: center;
+    }
+    
+    .hero-content {
+        max-width: 100% !important;
+        margin-right: 0 !important;
+        text-align: center;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem !important;
+        -webkit-text-stroke: 1px #ffffff;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.5rem !important;
+        -webkit-text-stroke: 0.8px #ffffff;
+    }
+    
+    .hero-description {
+        font-size: 1.1rem !important;
+    }
+    
+    .hero-image-container {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-ant {
+        max-height: 250px !important;
+        width: auto;
+    }
+    
+    /* ===== FEATURES SECTION FIX - 2 COLUMNS ===== */
+    .features-section {
+        padding: 50px 0 !important;
+    }
+    
+    .features-title {
+        font-size: 1.8rem !important;
+        margin-bottom: 30px !important;
+    }
+    
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+        padding: 0 15px;
+    }
+    
+    .feature-item {
+        padding: 20px 15px !important;
+    }
+    
+    .feature-item i {
+        font-size: 2.2rem !important;
+    }
+    
+    .feature-item p {
+        font-size: 0.85rem !important;
+        line-height: 1.3;
+    }
+    
+    /* ===== FOUNDER SECTION FIX - SHOW ALL CONTENT ===== */
+    .founder-section {
+        padding: 50px 0 !important;
+    }
+    
+    .founder-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 30px !important;
+    }
+    
+    .founder-left-column {
+        width: 100% !important;
+        gap: 30px !important;
+    }
+    
+    .founder-photo-frame {
+        width: 100% !important;
+        max-width: 400px;
+        height: auto;
+        aspect-ratio: 4/5;
+        margin: 0 auto;
+    }
+    
+    .founder-video-container {
+        width: 100% !important;
+        max-width: 400px;
+        height: auto;
+        aspect-ratio: 16/9;
+        margin: 0 auto;
+    }
+    
+    .founder-info {
+        width: 100% !important;
+        padding: 0 15px;
+    }
+    
+    .founder-name {
+        font-size: 1.8rem !important;
+        text-align: center;
+    }
+    
+    .founder-title {
+        font-size: 1.1rem !important;
+        text-align: center;
+    }
+    
+    .founder-description {
+        font-size: 1rem !important;
+    }
+    
+    .achievements-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .projects-title {
+        font-size: 1.5rem !important;
+    }
+    
+    .projects-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+    }
+    
+    .project-card {
+        padding: 20px 15px !important;
+    }
+    
+    .project-card i {
+        font-size: 2rem !important;
+    }
+    
+    .project-card h5 {
+        font-size: 1rem !important;
+    }
+    
+    .project-card p {
+        font-size: 0.85rem !important;
+    }
+    
+    /* ===== SAMO SECTION FIX - SHOW ALL ACHIEVEMENT CARDS ===== */
+    .samo-section {
+        padding: 50px 0 !important;
+    }
+    
+    .samo-achievements-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 20px !important;
+    }
+    
+    .achievement-item {
+        padding: 25px 15px !important;
+    }
+    
+    .achievement-item i {
+        font-size: 2rem !important;
+    }
+    
+    .achievement-item h4 {
+        font-size: 1rem !important;
+    }
+    
+    .achievement-item p {
+        font-size: 0.85rem !important;
+    }
+    
+    /* Countries grid - 2 columns */
+    .countries-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+    }
+    
+    .country-badge {
+        padding: 15px 10px !important;
+        font-size: 0.95rem !important;
+    }
+}
+
+/* Small mobile - single column for some */
+@media (max-width: 480px) {
+    /* Hero */
+    .hero-title {
+        font-size: 1.8rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem !important;
+    }
+    
+    .hero-description {
+        font-size: 1rem !important;
+    }
+    
+    /* Features - single column on very small screens */
+    .features-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* SAMO achievements - single column */
+    .samo-achievements-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Countries - single column */
+    .countries-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Founder projects - single column */
+    .projects-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+
+
 
 
 
