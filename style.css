@@ -3941,6 +3941,151 @@ html, body {
 }
 
 
+/* ========================================================================
+   MOBILE HEADER FIX
+   ======================================================================== */
+
+@media (max-width: 768px) {
+    /* Increase header height and adjust layout */
+    body {
+        padding-top: 80px !important;
+    }
+    
+    .main-header {
+        height: 80px !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    /* Logo - smaller */
+    .logo-container {
+        gap: 8px;
+    }
+    
+    .logo-img {
+        height: 32px !important;
+    }
+    
+    .logo-text {
+        font-size: 1.1rem !important;
+    }
+    
+    /* Hide main nav on mobile */
+    .main-nav {
+        display: none;
+    }
+    
+    /* Header actions - smaller icons */
+    .header-actions {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+    }
+    
+    .social-icon {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 1rem !important;
+        margin-right: 0 !important;
+    }
+    
+    /* Hamburger menu - ensure it's visible */
+    .hamburger-menu {
+        width: 25px;
+        height: 18px;
+        margin-left: 8px;
+    }
+    
+    .bar {
+        height: 2.5px;
+    }
+    
+    /* Dropdown menu - centered and visible */
+    .dropdown-menu {
+        position: fixed !important;
+        top: 80px !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) translateY(-10px);
+        width: 90%;
+        max-width: 320px;
+        z-index: 9999;
+    }
+    
+    .dropdown-menu.show {
+        transform: translateX(-50%) translateY(0);
+    }
+    
+    .dropdown-menu a {
+        padding: 14px 18px;
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Even smaller screens */
+    body {
+        padding-top: 70px !important;
+    }
+    
+    .main-header {
+        height: 70px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+    
+    .logo-img {
+        height: 28px !important;
+    }
+    
+    .logo-text {
+        font-size: 1rem !important;
+    }
+    
+    .social-icon {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.95rem !important;
+    }
+    
+    .hamburger-menu {
+        width: 22px;
+        height: 16px;
+    }
+    
+    .dropdown-menu {
+        top: 70px !important;
+        width: 95%;
+    }
+}
+
+/* Ensure dropdown overlay doesn't interfere */
+@media (max-width: 768px) {
+    .dropdown-menu::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+    
+    .dropdown-menu.show::before {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+
+
 
 
 
