@@ -205,37 +205,48 @@ if (typeof anime !== 'undefined') {
 }
 
 
-// UNIVERSAL VIDEO MODAL - For testimonials and future videos
-const videoTestimonials = document.querySelectorAll('.video-testimonial-card');
+// ========================================================================
+// UNIVERSAL VIDEO MODAL - Works with ANY videos on the site
+// ========================================================================
+// Supports both current testimonials (.video-testimonial-card) 
+// and any future video sections (.universal-video-card)
+
+const allVideoCards = document.querySelectorAll('.video-testimonial-card, .universal-video-card');
 const universalVideoModal = document.getElementById('universalVideoModal');
 const universalModalVideo = document.getElementById('universalModalVideo');
 const universalModalClose = document.getElementById('universalModalClose');
 const universalModalOverlay = document.getElementById('universalModalOverlay');
 
 // Intersection Observer for autoplay
-const testimonialObserverOptions = {
+const videoCardObserverOptions = {
     threshold: 0.5
 };
 
-const testimonialObserver = new IntersectionObserver((entries) => {
+const videoCardObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         const card = entry.target;
-        const preview = card.querySelector('.testimonial-video-preview');
+        // Support both old and new class names for iframe
+        const preview = card.querySelector('.testimonial-video-preview, .video-preview');
         const videoId = card.getAttribute('data-video-id');
 
-        if (entry.isIntersecting && videoId) {
+        if (entry.isIntersecting && videoId && preview) {
             // Load muted autoplay video
             preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
-        } else {
+        } else if (preview) {
             // Stop video when not visible
             preview.src = '';
         }
     });
-}, testimonialObserverOptions);
+}, videoCardObserverOptions);
 
-// Observe all video testimonial cards and setup click handlers
-videoTestimonials.forEach(card => {
-    testimonialObserver.observe(card);
+// Observe all video cards and setup click handlers
+allVideoCards.forEach(card => {
+    const preview = card.querySelector('.testimonial-video-preview, .video-preview');
+
+    // Only observe if there's an iframe for autoplay
+    if (preview) {
+        videoCardObserver.observe(card);
+    }
 
     // Click to open universal modal
     card.addEventListener('click', function () {
@@ -265,6 +276,123 @@ universalModalOverlay?.addEventListener('click', closeUniversalModal);
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && universalVideoModal?.classList.contains('active')) {
         closeUniversalModal();
+    }
+});
+
+
+// ========================================================================
+// APPLICATION FORM HANDLING
+// ========================================================================
+
+// Show/hide messenger contact field based on selection
+const messengerSelect = document.getElementById('messenger');
+const messengerContactGroup = document.getElementById('messengerContactGroup');
+const messengerContactLabel = document.getElementById('messengerContactLabel');
+const messengerContactInput = document.getElementById('messengerContact');
+
+if (messengerSelect) {
+    messengerSelect.addEventListener('change', function() {
+        if (this.value) {
+            messengerContactGroup.style.display = 'block';
+            
+            // Update label and placeholder based on messenger
+            if (this.value === 'whatsapp') {
+                messengerContactLabel.textContent = '���� WhatsApp';
+                messengerContactInput.placeholder = '+7 (___) ___-__-__';
+            } else if (this.value === 'telegram') {
+                messengerContactLabel.textContent = 'Username � Telegram';
+                messengerContactInput.placeholder = '@username';
+            } else if (this.value === 'viber') {
+                messengerContactLabel.textContent = '���� Viber';
+                messengerContactInput.placeholder = '+7 (___) ___-__-__';
+            }
+        } else {
+            messengerContactGroup.style.display = 'none';
+        }
+    });
+}
+
+// Form submission handler (placeholder)
+const applicationForm = document.getElementById('applicationForm');
+
+if (applicationForm) {
+    applicationForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Collect form data
+        const formData = {
+            parentName: document.getElementById('parentName').value,
+            childName: document.getElementById('childName').value,
+            childAge: document.getElementById('childAge').value,
+            city: document.getElementById('city').value,
+            phone: document.getElementById('phone').value,
+            messenger: document.getElementById('messenger').value,
+            messengerContact: document.getElementById('messengerContact').value,
+            message: document.getElementById('message').value
+        };
+        
+        console.log('Form data:', formData);
+        
+        // TODO: Connect to AMO CRM server
+        alert('������� �� ������! � �������� � ���� � ��������� �����.');
+        
+        // Reset form
+        applicationForm.reset();
+        messengerContactGroup.style.display = 'none';
+    });
+}
+
+
+// ========================================================================
+// FAQ ACCORDION
+// ========================================================================
+
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    
+    question.addEventListener('click', () => {
+        // Close other items
+        faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+            }
+        });
+        
+        // Toggle current item
+        item.classList.toggle('active');
+    });
+});
+
+
+// ========================================================================
+// MAP MODAL
+// ========================================================================
+
+const addressBtn = document.getElementById('addressBtn');
+const mapModal = document.getElementById('mapModal');
+const mapModalClose = document.getElementById('mapModalClose');
+const mapModalOverlay = document.getElementById('mapModalOverlay');
+
+if (addressBtn) {
+    addressBtn.addEventListener('click', () => {
+        mapModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+}
+
+const closeMapModal = () => {
+    mapModal.classList.remove('active');
+    document.body.style.overflow = '';
+};
+
+mapModalClose?.addEventListener('click', closeMapModal);
+mapModalOverlay?.addEventListener('click', closeMapModal);
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mapModal?.classList.contains('active')) {
+        closeMapModal();
     }
 });
 
