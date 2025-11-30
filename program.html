@@ -14,7 +14,7 @@
     <!-- Header -->
     <header class="main-header">
         <div class="logo-container">
-            <img src="icon/logo.png" alt="Дети на миллион Logo" class="logo-img">
+            <img src="ant.webp" alt="Дети на миллион Logo" class="logo-img">
             <div class="logo-text">Дети на миллион</div>
         </div>
 
@@ -23,9 +23,13 @@
                 <i class="fas fa-home"></i>
                 <span>Главная</span>
             </a>
-            <a href="program.html" class="nav-link">
-                <i class="fas fa-book"></i>
-                <span>Программа</span>
+            <a href="about.html" class="nav-link">
+                <i class="fas fa-users"></i>
+                <span>О нас</span>
+            </a>
+            <a href="blog.html" class="nav-link">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Школьная жизнь</span>
             </a>
         </nav>
 
@@ -33,7 +37,7 @@
             <a href="https://wa.me/77002544873" target="_blank" class="social-icon whatsapp">
                 <i class="fab fa-whatsapp"></i>
             </a>
-            <a href="#" class="social-icon telegram">
+            <a href="https://t.me/zhamilya_miracle" class="social-icon telegram">
                 <i class="fab fa-telegram"></i>
             </a>
             <a href="tel:+77002544873" class="social-icon phone">
@@ -44,15 +48,18 @@
                 <div class="bar"></div>
                 <div class="bar"></div>
                 <div class="bar"></div>
+                
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <a href="index.html">Главная</a>
+                    <a href="about.html">О нас</a>
+                    <a href="blog.html">Блог</a>
+                    <a href="index.html#faq">FAQ</a>
+                    <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 5px 0;">
+                    <a href="privacy.html" style="font-size: 0.9rem;">Политика конфиденциальности</a>
+                    <a href="terms.html" style="font-size: 0.9rem;">Пользовательское соглашение</a>
+                    <a href="offer.html" style="font-size: 0.9rem;">Публичная оферта</a>
+                </div>
             </div>
-        </div>
-
-        <div class="dropdown-menu" id="dropdownMenu">
-            <a href="index.html">Главная</a>
-            <a href="program.html">Программа обучения</a>
-            <a href="/about.html">О нас</a>
-            <a href="/blog.html">Блог</a>
-            <a href="index.html#faq">FAQ</a>
         </div>
     </header>
 
@@ -296,76 +303,79 @@
 
     <!-- Footer (from index.html) -->
     <footer class="main-footer">
-        <div class="section-container">
-            <div class="footer-grid">
-                <!-- Contact Info -->
+        <div class="footer-container">
+            <!-- Footer Top -->
+            <div class="footer-top">
+                <!-- Contacts -->
                 <div class="footer-column">
-                    <h4 class="footer-title">Контакты</h4>
+                    <h3>Контакты</h3>
                     <div class="footer-contacts">
-                        <p class="footer-contact">
+                        <button class="contact-item" id="addressBtn">
                             <i class="fas fa-map-marker-alt"></i>
-                            <span class="clickable-address" onclick="openMapModal()">Kazakhstan, Almaty<br>ul. Mamedova 54</span>
-                        </p>
-                        <p class="footer-contact">
+                            <span>Казахстан, Алматы,<br>ул. Маметовой 54</span>
+                        </button>
+                        <a href="tel:+77002544873" class="contact-item">
                             <i class="fas fa-phone"></i>
-                            <a href="tel:+77002544873">+7(700)254-48-73</a>
-                        </p>
-                        <p class="footer-contact">
+                            <span>+7 (700) 254-48-73</span>
+                        </a>
+                        <a href="mailto:dnmmanager0@gmail.com" class="contact-item">
                             <i class="fas fa-envelope"></i>
-                            <a href="mailto:dnmmanager0@gmail.com">dnmmanager0@gmail.com</a>
-                        </p>
+                            <span>dnmmanager0@gmail.com</span>
+                        </a>
                     </div>
                 </div>
 
                 <!-- Social Media -->
                 <div class="footer-column">
-                    <h4 class="footer-title">Мы в соцсетях</h4>
-                    <div class="footer-socials">
-                        <a href="https://wa.me/77002544873" target="_blank" class="footer-social">
-                            <i class="fab fa-whatsapp"></i> WhatsApp
+                    <h3>Мы в соц.сетях</h3>
+                    <p class="footer-social-text">📲 Подписывайтесь на наши соцсети! Там вы найдете ещё больше полезных идей, вдохновения и ярких моментов из жизни школы!</p>
+                    <div class="footer-social">
+                        <a href="https://wa.me/77002544873" target="_blank" class="social-link" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
                         </a>
-                        <a href="#" class="footer-social">
-                            <i class="fab fa-telegram"></i> Telegram
+                        <a href="https://t.me/zhamilya_miracle" target="_blank" class="social-link" title="Telegram">
+                            <i class="fab fa-telegram"></i>
                         </a>
-                        <a href="#" class="footer-social">
-                            <i class="fab fa-instagram"></i> Instagram
+                        <a href="#" target="_blank" class="social-link" title="Instagram">
+                            <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="footer-social">
-                            <i class="fab fa-tiktok"></i> TikTok
+                        <a href="#" target="_blank" class="social-link" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
                         </a>
-                        <a href="#" class="footer-social">
-                            <i class="fab fa-vk"></i> VK
+                        <a href="#" target="_blank" class="social-link" title="VK">
+                            <i class="fab fa-vk"></i>
                         </a>
-                        <a href="#" class="footer-social">
-                            <i class="fab fa-youtube"></i> YouTube
+                        <a href="#" target="_blank" class="social-link" title="YouTube">
+                            <i class="fab fa-youtube"></i>
                         </a>
                     </div>
                 </div>
 
                 <!-- Navigation -->
                 <div class="footer-column">
-                    <h4 class="footer-title">Навигация</h4>
-                    <div class="footer-links">
-                        <a href="/program.html" class="footer-link">Школьная программа</a>
-                        <a href="/about.html" class="footer-link">О нас</a>
-                        <a href="/blog.html" class="footer-link">Блог</a>
-                        <a href="index.html#faq" class="footer-link">FAQ</a>
-                    </div>
+                    <h3>Навигация</h3>
+                    <nav class="footer-nav">
+                        <a href="program.html">Школьная программа</a>
+                        <a href="about.html">О нас</a>
+                        <a href="blog.html">Блог</a>
+                        <a href="index.html#faq">FAQ</a>
+                    </nav>
                 </div>
 
                 <!-- Legal -->
                 <div class="footer-column">
-                    <h4 class="footer-title">Документы</h4>
-                    <div class="footer-links">
-                        <a href="/privacy.html" class="footer-link">Политика конфиденциальности</a>
-                        <a href="/terms.html" class="footer-link">Пользовательское соглашение</a>
-                        <a href="/offer.html" class="footer-link">Публичная оферта</a>
-                    </div>
+                    <h3>Юридические документы</h3>
+                    <nav class="footer-nav">
+                        <a href="/privacy.html">Политика конфиденциальности</a>
+                        <a href="/terms.html">Пользовательское соглашение</a>
+                        <a href="/offer.html">Публичная оферта</a>
+                    </nav>
                 </div>
             </div>
 
+            <!-- Footer Bottom -->
             <div class="footer-bottom">
-                <p class="footer-copyright">© 2024 Дети на миллион. Все права защищены.</p>
+                <p>&copy; 2024 Дети на миллион. Все права защищены.</p>
             </div>
         </div>
     </footer>
