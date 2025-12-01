@@ -1,0 +1,32 @@
+{
+    "name": "Дети на миллион - Бизнес-школа для детей",
+    "short_name": "Дети на миллион",
+    "description": "Авторская методика Саидмурода Давлатова для развития предпринимательского мышления и лидерских качеств у детей 10-17 лет",
+    "icons": [
+        {
+            "src": "/assets/favicons/web-app-manifest-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/assets/favicons/web-app-manifest-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "theme_color": "#FFD700",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/",
+    "orientation": "portrait-primary",
+    "lang": "ru",
+    "dir": "ltr",
+    "categories": [
+        "education",
+        "business",
+        "kids"
+    ]
+}
