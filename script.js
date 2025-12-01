@@ -291,19 +291,19 @@ const messengerContactLabel = document.getElementById('messengerContactLabel');
 const messengerContactInput = document.getElementById('messengerContact');
 
 if (messengerSelect) {
-    messengerSelect.addEventListener('change', function() {
+    messengerSelect.addEventListener('change', function () {
         if (this.value) {
             messengerContactGroup.style.display = 'block';
-            
+
             // Update label and placeholder based on messenger
             if (this.value === 'whatsapp') {
-                messengerContactLabel.textContent = '���� WhatsApp';
+                messengerContactLabel.textContent = 'Номер WhatsApp';
                 messengerContactInput.placeholder = '+7 (___) ___-__-__';
             } else if (this.value === 'telegram') {
-                messengerContactLabel.textContent = 'Username � Telegram';
+                messengerContactLabel.textContent = 'Username в Telegram';
                 messengerContactInput.placeholder = '@username';
             } else if (this.value === 'viber') {
-                messengerContactLabel.textContent = '���� Viber';
+                messengerContactLabel.textContent = 'Номер Viber';
                 messengerContactInput.placeholder = '+7 (___) ___-__-__';
             }
         } else {
@@ -312,13 +312,13 @@ if (messengerSelect) {
     });
 }
 
-// Form submission handler (placeholder)
+// Form submission handler
 const applicationForm = document.getElementById('applicationForm');
 
 if (applicationForm) {
-    applicationForm.addEventListener('submit', function(e) {
+    applicationForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         // Collect form data
         const formData = {
             parentName: document.getElementById('parentName').value,
@@ -330,15 +330,34 @@ if (applicationForm) {
             messengerContact: document.getElementById('messengerContact').value,
             message: document.getElementById('message').value
         };
-        
+
         console.log('Form data:', formData);
-        
-        // TODO: Connect to AMO CRM server
-        alert('������� �� ������! � �������� � ���� � ��������� �����.');
-        
-        // Reset form
-        applicationForm.reset();
-        messengerContactGroup.style.display = 'none';
+
+        const SERVER_URL = 'https://kindsofmillionkzxyz.onrender.com';
+
+        fetch(`${SERVER_URL}/send-application`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
+                    applicationForm.reset();
+                    if (typeof messengerContactGroup !== 'undefined') {
+                        messengerContactGroup.style.display = 'none';
+                    }
+                } else {
+                    alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
+            });
     });
 }
 
@@ -351,7 +370,7 @@ const faqItems = document.querySelectorAll('.faq-item');
 
 faqItems.forEach(item => {
     const question = item.querySelector('.faq-question');
-    
+
     question.addEventListener('click', () => {
         // Close other items
         faqItems.forEach(otherItem => {
@@ -359,7 +378,7 @@ faqItems.forEach(item => {
                 otherItem.classList.remove('active');
             }
         });
-        
+
         // Toggle current item
         item.classList.toggle('active');
     });
@@ -395,6 +414,7 @@ document.addEventListener('keydown', (e) => {
         closeMapModal();
     }
 });
+
 
 
 
