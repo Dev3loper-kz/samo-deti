@@ -1,57 +1,58 @@
+// Global function to close Hartmann video modal
+function closeModal() {
+    const videoModal = document.getElementById('videoModal');
+    const modalVideo = document.getElementById('modalVideo');
+    if (videoModal) {
+        videoModal.classList.remove('active');
+        modalVideo.src = '';
+        document.body.style.overflow = '';
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    // ========================================================================
-    // HEADER & NAVIGATION
-    // ========================================================================
     const hamburger = document.getElementById('hamburgerMenu');
     const dropdown = document.getElementById('dropdownMenu');
 
-    if (hamburger && dropdown) {
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            hamburger.classList.toggle('active');
-            dropdown.classList.toggle('show');
-        });
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hamburger.classList.toggle('active');
+        dropdown.classList.toggle('show');
+    });
 
-        document.addEventListener('click', (e) => {
-            if (!hamburger.contains(e.target) && !dropdown.contains(e.target)) {
-                hamburger.classList.remove('active');
-                dropdown.classList.remove('show');
-            }
-        });
-    }
+    document.addEventListener('click', (e) => {
+        if (!hamburger.contains(e.target) && !dropdown.contains(e.target)) {
+            hamburger.classList.remove('active');
+            dropdown.classList.remove('show');
+        }
+    });
 
     // Dynamic header on scroll
     const header = document.querySelector('.main-header');
-    if (header) {
-        let lastScrollTop = 0;
-        let scrollThreshold = 5;
+    let lastScrollTop = 0;
+    let scrollThreshold = 5;
 
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-            if (scrollTop <= 0) {
-                header.classList.remove('header-hidden');
-                return;
-            }
+        if (scrollTop <= 0) {
+            header.classList.remove('header-hidden');
+            return;
+        }
 
-            if (Math.abs(scrollTop - lastScrollTop) < scrollThreshold) {
-                return;
-            }
+        if (Math.abs(scrollTop - lastScrollTop) < scrollThreshold) {
+            return;
+        }
 
-            if (scrollTop > lastScrollTop) {
-                header.classList.add('header-hidden');
-            } else {
-                header.classList.remove('header-hidden');
-            }
+        if (scrollTop > lastScrollTop) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
 
-            lastScrollTop = scrollTop;
-        });
-    }
+        lastScrollTop = scrollTop;
+    });
 
-    // ========================================================================
-    // HERO / FOUNDER SECTION
-    // ========================================================================
-    // Rotating photos
+    // Rotating photos in founder section
     const photos = document.querySelectorAll('.founder-photo');
     if (photos.length > 0) {
         let currentPhotoIndex = 0;
@@ -77,99 +78,83 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.5
     };
 
-    if (videoPreview) {
-        const videoObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    videoPreview.src = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeVideoId}`;
-                } else {
-                    videoPreview.src = '';
-                }
-            });
-        }, observerOptions);
-
-        if (videoContainer) {
-            videoObserver.observe(videoContainer);
-        }
-    }
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                videoPreview.src = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${youtubeVideoId}`;
+            } else {
+                videoPreview.src = '';
+            }
+        });
+    }, observerOptions);
 
     if (videoContainer) {
-        videoContainer.addEventListener('click', () => {
-            videoModal.classList.add('active');
-            modalVideo.src = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&controls=1`;
-            document.body.style.overflow = 'hidden';
-        });
+        videoObserver.observe(videoContainer);
     }
 
-    const closeModal = () => {
-        if (videoModal) {
-            videoModal.classList.remove('active');
-            modalVideo.src = '';
-            document.body.style.overflow = '';
-        }
-    };
+    videoContainer?.addEventListener('click', () => {
+        videoModal.classList.add('active');
+        modalVideo.src = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&controls=1`;
+        document.body.style.overflow = 'hidden';
+    });
 
     modalClose?.addEventListener('click', closeModal);
     modalOverlay?.addEventListener('click', closeModal);
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && videoModal && videoModal.classList.contains('active')) {
+        if (e.key === 'Escape' && videoModal.classList.contains('active')) {
             closeModal();
         }
     });
 
     // Animated counters for SAMO stats
     const statNumbers = document.querySelectorAll('.stat-number');
-    if (statNumbers.length > 0) {
-        const animateCounter = (element) => {
-            const target = parseInt(element.getAttribute('data-target'));
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
 
-            const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    element.textContent = Math.floor(current).toLocaleString();
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    element.textContent = target.toLocaleString();
-                }
-            };
+    const animateCounter = (element) => {
+        const target = parseInt(element.getAttribute('data-target'));
+        const duration = 2000;
+        const increment = target / (duration / 16);
+        let current = 0;
 
-            updateCounter();
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                element.textContent = Math.floor(current).toLocaleString();
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.textContent = target.toLocaleString();
+            }
         };
 
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
-                    entry.target.classList.add('animated');
-                    animateCounter(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
+        updateCounter();
+    };
 
-        statNumbers.forEach(stat => {
-            statsObserver.observe(stat);
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                entry.target.classList.add('animated');
+                animateCounter(entry.target);
+            }
         });
-    }
+    }, { threshold: 0.5 });
+
+    statNumbers.forEach(stat => {
+        statsObserver.observe(stat);
+    });
 });
 
 
-// ========================================================================
-// VIDEO CTA SECTION
-// ========================================================================
+// Video CTA Section
 const ctaVideoOverlay = document.getElementById('videoPlayOverlay');
+const ctaVideoFrame = document.getElementById('ctaVideoFrame');
 const ctaButton = document.getElementById('ctaButton');
 
 if (ctaVideoOverlay) {
     ctaVideoOverlay.addEventListener('click', function () {
         this.classList.add('hidden');
         const iframe = document.getElementById('ctaVideo');
-        if (iframe) {
-            const currentSrc = iframe.src;
-            iframe.src = currentSrc.replace('mute=1', 'mute=0').replace('controls=0', 'controls=1');
-        }
+        const currentSrc = iframe.src;
+        iframe.src = currentSrc.replace('mute=1', 'mute=0').replace('controls=0', 'controls=1');
     });
 }
 
@@ -226,8 +211,11 @@ if (typeof anime !== 'undefined') {
 
 
 // ========================================================================
-// UNIVERSAL VIDEO MODAL
+// UNIVERSAL VIDEO MODAL - Works with ANY videos on the site
 // ========================================================================
+// Supports both current testimonials (.video-testimonial-card) 
+// and any future video sections (.universal-video-card)
+
 const allVideoCards = document.querySelectorAll('.video-testimonial-card, .universal-video-card');
 const universalVideoModal = document.getElementById('universalVideoModal');
 const universalModalVideo = document.getElementById('universalModalVideo');
@@ -242,26 +230,33 @@ const videoCardObserverOptions = {
 const videoCardObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         const card = entry.target;
+        // Support both old and new class names for iframe
         const preview = card.querySelector('.testimonial-video-preview, .video-preview');
         const videoId = card.getAttribute('data-video-id');
 
         if (entry.isIntersecting && videoId && preview) {
+            // Load muted autoplay video
             preview.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${videoId}`;
         } else if (preview) {
+            // Stop video when not visible
             preview.src = '';
         }
     });
 }, videoCardObserverOptions);
 
-// Observe all video cards
+// Observe all video cards and setup click handlers
 allVideoCards.forEach(card => {
     const preview = card.querySelector('.testimonial-video-preview, .video-preview');
+
+    // Only observe if there's an iframe for autoplay
     if (preview) {
         videoCardObserver.observe(card);
     }
 
+    // Click to open universal modal
     card.addEventListener('click', function () {
         const videoId = card.getAttribute('data-video-id');
+
         if (universalVideoModal && universalModalVideo && videoId) {
             universalModalVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&rel=0`;
             universalVideoModal.classList.add('active');
@@ -270,6 +265,7 @@ allVideoCards.forEach(card => {
     });
 });
 
+// Close universal modal
 const closeUniversalModal = () => {
     if (universalVideoModal) {
         universalVideoModal.classList.remove('active');
@@ -281,6 +277,7 @@ const closeUniversalModal = () => {
 universalModalClose?.addEventListener('click', closeUniversalModal);
 universalModalOverlay?.addEventListener('click', closeUniversalModal);
 
+// Close on Escape key for universal modal
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && universalVideoModal?.classList.contains('active')) {
         closeUniversalModal();
@@ -289,9 +286,10 @@ document.addEventListener('keydown', (e) => {
 
 
 // ========================================================================
-// APPLICATION FORM HANDLING (SEND TO SERVER)
+// APPLICATION FORM HANDLING
 // ========================================================================
 
+// Show/hide messenger contact field based on selection
 const messengerSelect = document.getElementById('messenger');
 const messengerContactGroup = document.getElementById('messengerContactGroup');
 const messengerContactLabel = document.getElementById('messengerContactLabel');
@@ -302,6 +300,7 @@ if (messengerSelect) {
         if (this.value) {
             messengerContactGroup.style.display = 'block';
 
+            // Update label and placeholder based on messenger
             if (this.value === 'whatsapp') {
                 messengerContactLabel.textContent = 'Номер WhatsApp';
                 messengerContactInput.placeholder = '+7 (___) ___-__-__';
@@ -318,37 +317,27 @@ if (messengerSelect) {
     });
 }
 
-// Отправка формы
+// Form submission handler
 const applicationForm = document.getElementById('applicationForm');
 
 if (applicationForm) {
     applicationForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        // 1. Блокируем кнопку, чтобы не нажимали много раз
-        const submitBtn = applicationForm.querySelector('button[type="submit"]');
-        const originalBtnText = submitBtn ? submitBtn.innerText : 'Отправить';
-        
-        if (submitBtn) {
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'Отправка...';
-        }
-
-        // 2. Собираем данные
+        // Collect form data
         const formData = {
-            parentName: document.getElementById('parentName')?.value || '',
-            childName: document.getElementById('childName')?.value || '',
-            childAge: document.getElementById('childAge')?.value || '',
-            city: document.getElementById('city')?.value || '',
-            phone: document.getElementById('phone')?.value || '',
-            messenger: document.getElementById('messenger')?.value || '',
-            messengerContact: document.getElementById('messengerContact')?.value || '',
-            message: document.getElementById('message')?.value || ''
+            parentName: document.getElementById('parentName').value,
+            childName: document.getElementById('childName').value,
+            childAge: document.getElementById('childAge').value,
+            city: document.getElementById('city').value,
+            phone: document.getElementById('phone').value,
+            messenger: document.getElementById('messenger').value,
+            messengerContact: document.getElementById('messengerContact').value,
+            message: document.getElementById('message').value
         };
 
-        console.log('Отправка данных:', formData);
+        console.log('Form data:', formData);
 
-        // 3. Отправляем на Render
         const SERVER_URL = 'https://kindsofmillionkzxyz.onrender.com';
 
         fetch(`${SERVER_URL}/send-application`, {
@@ -360,28 +349,19 @@ if (applicationForm) {
         })
             .then(response => response.json())
             .then(data => {
-                // Если сервер вернул success: true (значит Телеграм точно ушел)
                 if (data.success) {
                     alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время.');
                     applicationForm.reset();
-                    if (messengerContactGroup) {
+                    if (typeof messengerContactGroup !== 'undefined') {
                         messengerContactGroup.style.display = 'none';
                     }
                 } else {
-                    // Если сервер вернул success: false (значит и Телеграм и Амо упали)
-                    alert('Произошла ошибка при отправке заявки. Пожалуйста, напишите нам напрямую.');
+                    alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
                 }
             })
             .catch(error => {
-                console.error('Ошибка сети:', error);
-                alert('Проблема с соединением. Попробуйте позже или напишите нам в WhatsApp.');
-            })
-            .finally(() => {
-                // 4. Возвращаем кнопку в исходное состояние
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = originalBtnText;
-                }
+                console.error('Error:', error);
+                alert('Произошла ошибка при отправке заявки. Пожалуйста, попробуйте позже.');
             });
     });
 }
@@ -390,32 +370,36 @@ if (applicationForm) {
 // ========================================================================
 // FAQ ACCORDION
 // ========================================================================
+
 const faqItems = document.querySelectorAll('.faq-item');
 
 faqItems.forEach(item => {
     const question = item.querySelector('.faq-question');
-    if (question) {
-        question.addEventListener('click', () => {
-            faqItems.forEach(otherItem => {
-                if (otherItem !== item && otherItem.classList.contains('active')) {
-                    otherItem.classList.remove('active');
-                }
-            });
-            item.classList.toggle('active');
+
+    question.addEventListener('click', () => {
+        // Close other items
+        faqItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+            }
         });
-    }
+
+        // Toggle current item
+        item.classList.toggle('active');
+    });
 });
 
 
 // ========================================================================
 // MAP MODAL
 // ========================================================================
+
 const addressBtn = document.getElementById('addressBtn');
 const mapModal = document.getElementById('mapModal');
 const mapModalClose = document.getElementById('mapModalClose');
 const mapModalOverlay = document.getElementById('mapModalOverlay');
 
-if (addressBtn && mapModal) {
+if (addressBtn) {
     addressBtn.addEventListener('click', () => {
         mapModal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -423,10 +407,8 @@ if (addressBtn && mapModal) {
 }
 
 const closeMapModal = () => {
-    if (mapModal) {
-        mapModal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
+    mapModal.classList.remove('active');
+    document.body.style.overflow = '';
 };
 
 mapModalClose?.addEventListener('click', closeMapModal);
@@ -437,3 +419,4 @@ document.addEventListener('keydown', (e) => {
         closeMapModal();
     }
 });
+
