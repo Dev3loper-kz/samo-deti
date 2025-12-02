@@ -420,3 +420,81 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+
+// ========================================================================
+// PHOTO SLIDER FOR ABOUT PAGE
+// ========================================================================
+
+let currentSlideIndex = 1;
+let slideInterval;
+
+// Initialize slider
+function initSlider() {
+    showSlide(currentSlideIndex);
+    startAutoSlide();
+}
+
+// Show specific slide
+function showSlide(n) {
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+
+    if (!slides.length) return;
+
+    if (n > slides.length) {
+        currentSlideIndex = 1;
+    }
+    if (n < 1) {
+        currentSlideIndex = slides.length;
+    }
+
+    // Hide all slides
+    slides.forEach(slide => {
+        slide.classList.remove('active');
+    });
+
+    // Remove active from all dots
+    dots.forEach(dot => {
+        dot.classList.remove('active');
+    });
+
+    // Show current slide
+    slides[currentSlideIndex - 1].classList.add('active');
+    dots[currentSlideIndex - 1].classList.add('active');
+}
+
+// Move slide by n positions
+function moveSlide(n) {
+    stopAutoSlide();
+    currentSlideIndex += n;
+    showSlide(currentSlideIndex);
+    startAutoSlide();
+}
+
+// Go to specific slide
+function currentSlide(n) {
+    stopAutoSlide();
+    currentSlideIndex = n;
+    showSlide(currentSlideIndex);
+    startAutoSlide();
+}
+
+// Auto slide every 5 seconds
+function startAutoSlide() {
+    slideInterval = setInterval(() => {
+        currentSlideIndex++;
+        showSlide(currentSlideIndex);
+    }, 5000);
+}
+
+// Stop auto slide
+function stopAutoSlide() {
+    clearInterval(slideInterval);
+}
+
+// Initialize slider when DOM is loaded
+if (document.querySelector('.founders-photo-slider')) {
+    initSlider();
+}
+
+
