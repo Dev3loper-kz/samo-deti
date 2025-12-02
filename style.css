@@ -5618,11 +5618,11 @@ body {
 
 @media (max-width: 768px) {
     .about-hero-section {
+        background-image: url('images/5.jpg');
         background-attachment: scroll;
-        background-size: contain;
-        background-position: center top;
+        background-size: cover;
+        background-position: center center;
         background-repeat: no-repeat;
-        background-color: #003380;
     }
 
     .about-hero-content {
@@ -6508,6 +6508,7 @@ body {
         width: 25px;
     }
 }
+
 
 
 
