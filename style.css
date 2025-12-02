@@ -5619,6 +5619,10 @@ body {
 @media (max-width: 768px) {
     .about-hero-section {
         background-attachment: scroll;
+        background-size: contain;
+        background-position: center top;
+        background-repeat: no-repeat;
+        background-color: #003380;
     }
 
     .about-hero-content {
@@ -5663,6 +5667,12 @@ body {
 }
 
 @media (max-width: 480px) {
+    .about-hero-section {
+        min-height: 100vh;
+        background-size: cover;
+        background-position: center center;
+    }
+
     .about-hero-title {
         font-size: 2rem;
     }
@@ -6498,6 +6508,7 @@ body {
         width: 25px;
     }
 }
+
 
 
 
